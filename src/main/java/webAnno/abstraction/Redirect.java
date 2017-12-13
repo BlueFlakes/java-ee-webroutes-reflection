@@ -1,7 +1,6 @@
 package webAnno.abstraction;
 
 import webAnno.enums.Route;
-import webAnno.enums.WebMethodType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,7 +10,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 
-public @interface WebRoute {
-    WebMethodType methodType() default WebMethodType.DEFAULT;
-    Route path() default Route.DEFAULT;
+public @interface Redirect {
+    Route route() default Route.DEFAULT;
 }

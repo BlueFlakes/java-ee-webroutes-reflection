@@ -1,17 +1,18 @@
 package webAnno.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Route {
-    HOME(WebMethodType.DEFAULT),
-    FORM(WebMethodType.POST),
-    DEFAULT(WebMethodType.DEFAULT);
+    HOME(WebMethodType.DEFAULT, "/home"),
+    FORM(WebMethodType.POST, "/form"),
+    DEFAULT(WebMethodType.DEFAULT, "/home");
 
     private WebMethodType webMethodType;
+    private String path;
 
-    Route(WebMethodType webMethodType) {
+    Route(WebMethodType webMethodType, String path) {
         this.webMethodType = webMethodType;
-    }
-
-    public WebMethodType getWebMethodType() {
-        return webMethodType;
+        this.path = path;
     }
 }

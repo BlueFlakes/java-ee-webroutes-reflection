@@ -27,7 +27,7 @@ public class EnumUtils {
                 throw new IllegalArgumentException("Given class is not enum");
 
             if (getDefaultValue(givenClass.getEnumConstants()) == null)
-                throw new IllegalStateException("Delivered enum class must contain \"DEFAULT\" value");
+                throw new IllegalStateException("Delivered enum class must contain \"DEFAULT\" route");
 
             approvedClasses.add(givenClass);
         }
