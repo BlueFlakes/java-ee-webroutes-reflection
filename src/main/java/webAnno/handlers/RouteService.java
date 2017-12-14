@@ -1,6 +1,8 @@
 package webAnno.handlers;
 
 import com.sun.net.httpserver.HttpExchange;
+import org.jtwig.JtwigModel;
+import org.jtwig.JtwigTemplate;
 import webAnno.abstraction.Redirect;
 import webAnno.abstraction.WebRoute;
 import webAnno.enums.Route;
@@ -58,30 +60,46 @@ public class RouteService<T extends Annotation, U> {
 
     @Redirect(route = Route.DEFAULT)
     public void defaultRedirect(HttpExchange httpExchange) throws IOException {
-        Common.redirect(httpExchange, "/home");
+        Common.redirect(httpExchange, Route.HOME.getPath());
     }
 
     @Redirect(route = Route.FORM)
     public void formRedirect(HttpExchange httpExchange) throws IOException {
-        Common.redirect(httpExchange, "/form");
+        Common.redirect(httpExchange, Route.FORM.getPath());
+    }
+
+    @Redirect(route = Route.CONTACT)
+    public void contactRedirect(HttpExchange httpExchange) throws IOException {
+        Common.redirect(httpExchange, Route.CONTACT.getPath());
+    }
+
+    @WebRoute(path = Route.CONTACT)
+    public void contactRoute(HttpExchange httpExchange) throws IOException {
+        String color = "pink";
+
+        Common.writeHttpOutputStream(httpExchange, getResponse(color));
     }
 
     @WebRoute(path = Route.HOME)
     public void homeRoute(HttpExchange httpExchange) throws IOException {
+        String color = "aliceblue";
 
-        String response = "<html><body><h1>Hello from home</h1></body></html>";
-        Common.writeHttpOutputStream(httpExchange, response);
+        Common.writeHttpOutputStream(httpExchange, getResponse(color));
     }
 
-    @WebRoute(path = Route.FORM, methodType = WebMethodType.POST)
+    @WebRoute(path = Route.FORM)
     public void formRoute(HttpExchange httpExchange) throws IOException {
 
-        String response = "<html><body><h1>Hello from FORM</h1></body></html>";
-        Common.writeHttpOutputStream(httpExchange, response);
+        String color = "yellowgreen";
+        Common.writeHttpOutputStream(httpExchange, getResponse(color));
     }
 
-    @WebRoute(methodType = WebMethodType.POST, path = Route.DEFAULT)
-    public void handlePost(HttpExchange httpExchange) throws IOException {
+    private String getResponse(String color) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/MainTemplate.twig");
+        JtwigModel model = JtwigModel.newModel();
 
+        model.with("color", color);
+
+        return template.render(model);
     }
 }

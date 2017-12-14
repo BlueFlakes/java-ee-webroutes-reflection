@@ -5,7 +5,8 @@ import lombok.Getter;
 @Getter
 public enum Route {
     HOME(WebMethodType.DEFAULT, "/home"),
-    FORM(WebMethodType.POST, "/form"),
+    FORM(WebMethodType.DEFAULT, "/form"),
+    CONTACT(WebMethodType.DEFAULT, "/contact"),
     DEFAULT(WebMethodType.DEFAULT, "/home");
 
     private WebMethodType webMethodType;
